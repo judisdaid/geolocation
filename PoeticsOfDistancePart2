@@ -1,0 +1,49 @@
+var places = [{lat: 41.986556, lon: -87.650998, txt: "a u sinks and the word boy rises", name: "the lake front", intro: "On the lake front,"},
+
+{lat: 40.738527, lon: -74.009438, txt: "wallpaper made of plush peacock eyes", name: "the lobby", intro: "In the lobby,"}];
+              
+var lat, lon;
+var has_location = false;
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(255);
+  if (has_location == true) {
+    //print(lat, lon);
+    output = places[1].intro + " " + places[1].txt;
+    //print(output)
+    fill(0);
+    textSize(15);
+    text(output, 15, 50);
+    
+  }
+}
+
+//code for geolocation
+have_coordinates = function(position) {
+  lat = position.coords.latitude;
+  lon = position.coords.longitude;
+  has_location = true;
+  //print(lat,lon);
+}
+
+//produces error messages if there is a problem
+onError = function(error) {
+  alert('code: ' + error.code + '\n' +
+    'message: ' + error.message + '\n');
+}
+
+//sets some options for geolocation like accuracy and frequency
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0,
+  desiredAccuracy: 0,
+  frequency: 1
+};
+
+//the watchPosition method of the javascript geolocation object listens for changes in position (latitude and longitude)
+navigator.geolocation.watchPosition(have_coordinates, onError, options);
